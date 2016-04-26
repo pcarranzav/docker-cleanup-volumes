@@ -59,6 +59,9 @@ function delete_volumes() {
                 else
                         if [ "${dryrun}" = false ]; then
                                 echo "Deleting ${dir}"
+                                if [ -d "${targetdir}/${dir}/btrfs/subvolumes" ]; then
+                                        btrfs subvolume delete ${targetdir}/${dir}/btrfs/subvolumes/* || true
+                                fi
                                 rm -rf "${targetdir}/${dir}"
                         else
                                 echo "Would have deleted ${dir}"
